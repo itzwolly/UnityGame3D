@@ -49,10 +49,12 @@ public class Game : MonoBehaviour
     }
 
     private void OnEnable() {
+        GameStarted += onGameStarted;
         GameStarting += onGameStarting;
         GamePaused += onGamePaused;
         GameUnpaused += onGameUnpaused;
-        GameQuittingToMenu += onGameQuitting;
+        GameQuittingToMenu += onGameQuittingToMenu;
+        GameQuitToMenu += onGameQuitToMenu;
 
         _player.PauseButtonClicked += onPlayerClickedPauseButton;
         _player.Dead += onPlayerDead;
@@ -76,10 +78,12 @@ public class Game : MonoBehaviour
     
 
     private void OnDisable() {
+        GameStarted -= onGameStarted;
         GameStarting -= onGameStarting;
         GamePaused -= onGamePaused;
         GameUnpaused -= onGameUnpaused;
-        GameQuittingToMenu -= onGameQuitting;
+        GameQuittingToMenu -= onGameQuittingToMenu;
+        GameQuitToMenu -= onGameQuitToMenu;
 
         _player.PauseButtonClicked -= onPlayerClickedPauseButton;
         _player.Dead -= onPlayerDead;
@@ -150,6 +154,11 @@ public class Game : MonoBehaviour
         }
     }
 
+    private void setPlayerLocation() {
+        _player.transform.position = _currentRespawnPoint.position;
+        _player.transform.rotation = _currentRespawnPoint.rotation;
+    }
+
     private void onPlayerClickedPauseButton(object sender, EventArgs e) {
         if (!_paused) {
             Pause();
@@ -159,8 +168,7 @@ public class Game : MonoBehaviour
     }
 
     private void onPlayerDead(object sender, EventArgs e) {
-        _player.transform.position = _currentRespawnPoint.position;
-        _player.transform.rotation = _currentRespawnPoint.rotation;
+        setPlayerLocation();
     }
 
     private void onPlayerPickupTouched(object sender, GameObject e) {
@@ -180,8 +188,16 @@ public class Game : MonoBehaviour
         startGame();
     }
 
-    private void onGameQuitting(object sender, EventArgs e) {
+    private void onGameStarted(object sender, EventArgs e) {
+        _mainCamera.SetFollowEnabled(true);
+    }
+
+    private void onGameQuittingToMenu(object sender, EventArgs e) {
         quitToMenu();
+    }
+
+    private void onGameQuitToMenu(object sender, EventArgs e) {
+        setPlayerLocation();
     }
 
     private void onGamePlayClicked(object sender, EventArgs e) {

@@ -25,8 +25,12 @@ public class MainCameraBehaviour : MonoBehaviour
         StartCoroutine(startTransition());
     }
 
+    public void SetFollowEnabled(bool enabled) {
+        _followCamera.enabled = enabled; // Disable the follow camera script
+    }
+
     private IEnumerator startTransition() {
-        _followCamera.enabled = false; // Disable the follow camera script
+        SetFollowEnabled(false);
         _disableDepthOfField.StartTransition();
         _cameraTransition.StartTransition();
 
