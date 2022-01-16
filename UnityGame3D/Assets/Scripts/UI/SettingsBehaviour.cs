@@ -25,7 +25,7 @@ public class SettingsBehaviour : MonoBehaviour
     }
 
     public void PreviousPage() {
-        _currentPanelIndex = (_currentPanelIndex - 1) % _panels.Length;
+        _currentPanelIndex = (Math.Abs(_currentPanelIndex - 1)) % _panels.Length;
 
         showCurrentPanel();
 
