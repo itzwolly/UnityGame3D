@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class SettingsBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject[] _panels;
+    [SerializeField] private GraphicsSettings _graphicsSettings;
+    [SerializeField] private AudioSettings _audioSettings;
 
     private int _currentPanelIndex = 0;
 
@@ -14,6 +16,11 @@ public class SettingsBehaviour : MonoBehaviour
 
     private void Start() {
         showCurrentPanel();
+    }
+
+    public void LoadSettings() {
+        _graphicsSettings.LoadSettings();
+        _audioSettings.LoadSettings();
     }
 
     public void NextPage() {

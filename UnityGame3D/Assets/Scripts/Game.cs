@@ -27,6 +27,7 @@ public class Game : MonoBehaviour
     [SerializeField] private InGameEvents _inGameEvents;
 
     private bool _paused;
+    private SettingsBehaviour _settingsBehaviour;
 
     public event EventHandler GameStarting;
     public event EventHandler GameStarted;
@@ -36,6 +37,9 @@ public class Game : MonoBehaviour
     public event EventHandler GameQuitToMenu;
 
     private void Awake() {
+        _settingsBehaviour = _settingsCanvas.GetComponent<SettingsBehaviour>();
+        _settingsBehaviour.LoadSettings();
+
         _hudCanvas.SetActive(false);
         _mainMenuCanvas.SetActive(true);
     }

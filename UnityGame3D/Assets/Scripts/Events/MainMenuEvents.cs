@@ -19,6 +19,9 @@ public class MainMenuEvents : MonoBehaviour
     }
 
     public void SaveSettings() {
+        // Save changes to disk
+        PlayerPrefs.Save();
+        // Alert listeners about the save
         SaveSettingsClicked?.Invoke(this, EventArgs.Empty);
     }
 
